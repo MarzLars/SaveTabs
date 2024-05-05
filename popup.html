@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Information: Character set, Viewport, and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tab Saver Popup</title>
+
+    <!-- External CSS -->
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <div id="app">
+<!-- Main Application Container -->
+    <main id="app">
+        <!-- Title of the Application -->
         <h1>Tab Saver</h1>
-        <button id="saveTabs">Save Tabs</button>
-        <button id="exportTabs">Export Tabs</button>
-        <button id="importTabs">Import Tabs</button>
+
+        <!-- Action Buttons Section -->
+        <div>
+            <!-- Button to save all open tabs -->
+            <button id="saveTabs" aria-label="Save all open tabs">Save Tabs</button>
+            <!-- Button to export saved tabs to a file -->
+            <button id="exportTabs" aria-label="Export saved tabs to a file">Export Tabs</button>
+            <!-- Button to import tabs from a file -->
+            <button id="importTabs" aria-label="Import tabs from a file">Import Tabs</button>
+        </div>
+
+        <!-- List to display saved tabs -->
         <ul id="tabsList"></ul>
-    </div>
-    <script src="popup.js"></script>
+    </main>
+
+<!-- JavaScript File -->
+<script src="popup.js" defer></script>
 </body>
 </html>
