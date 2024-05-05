@@ -1,74 +1,93 @@
-// popup.js
+//popup.js
+/**
+ * Initializes the application once the DOM is fully loaded.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const tabManager = new TabManager();
+    const uiManager = new UIManager(tabManager);
 
-// Utility function to create and return a DOM element with specified attributes
-const createElement = (tag, attributes = {}) => {
-    const element = document.createElement(tag);
-    Object.keys(attributes).forEach(key => element[key] = attributes[key]);
-    return element;
-};
+    setupEventListeners(tabManager, uiManager);
+});
 
-// Saves the URLs of all open tabs in the current window to local storage
-const saveTabs = () => {
-    chrome.tabs.query({currentWindow: true}, tabs => {
+/**
+ * Sets up event listeners for various user interactions.
+ * @param {TabManager} tabManager - The instance managing tab operations.
+ * @param {UIManager} uiManager - The instance managing UI operations.
+ */
+function setupEventListeners(tabManager, uiManager) {
+    document.getElementById('saveTabs').addEventListener('click', () => saveTabs(tabManager, uiManager));
+    document.getElementById('exportTabs').addEventListener('click', () => exportTabs(tabManager));
+    document.getElementById('importTabs').addEventListener('click', () => importTabs(tabManager, uiManager));
+}
+
+/**
+ * Saves the current window's tabs and displays them in the UI.
+ * @param {TabManager} tabManager - The instance managing tab operations.
+ * @param {UIManager} uiManager - The instance managing UI operations.
+ */
+async function saveTabs(tabManager, uiManager) {
+    try {
+        const tabs = await chrome.tabs.query({currentWindow: true});
         const tabUrls = tabs.map(tab => tab.url);
-        chrome.storage.local.set({tabUrls}, () => {
-            console.log('Tabs saved.');
-            displaySavedTabs(tabUrls);
-        });
-    });
-};
+        await tabManager.saveTabs(tabUrls);
+        console.log('Tabs saved.');
+        uiManager.displaySavedTabs(tabUrls);
+    } catch (error) {
+        console.error('Failed to save tabs:', error);
+    }
+}
 
-// Exports the saved tab URLs from local storage into a downloadable text file
-const exportTabs = () => {
-    chrome.storage.local.get('tabUrls', result => {
-        if (result.tabUrls && result.tabUrls.length > 0) {
-            const blob = new Blob([result.tabUrls.join('\n')], {type: 'text/plain'});
-            const url = URL.createObjectURL(blob);
-            const a = createElement('a', {
-                href: url,
-                download: 'tabs.txt'
-            });
-            a.click();
-            console.log('Exporting tabs:', result.tabUrls);
+/**
+ * Exports the saved tabs to a text file that the user can download.
+ * @param {TabManager} tabManager - The instance managing tab operations.
+ */
+async function exportTabs(tabManager) {
+    try {
+        const url = await tabManager.exportTabs();
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'tabs.txt';
+        a.click();
+        console.log('Exporting tabs:', url);
+    } catch (error) {
+        console.error('Failed to export tabs:', error);
+    }
+}
+
+/**
+ * Imports tabs from a selected text file and displays them in the UI.
+ * @param {TabManager} tabManager - The instance managing tab operations.
+ * @param {UIManager} uiManager - The instance managing UI operations.
+ */
+function importTabs(tabManager, uiManager) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'text/plain';
+    input.onchange = async event => {
+        try {
+            const file = event.target.files[0];
+            const tabUrls = await tabManager.importTabs(file);
+            uiManager.displaySavedTabs(tabUrls);
+        } catch (error) {
+            console.error('Failed to import tabs:', error);
         }
-    });
-};
-
-// Allows the user to import tab URLs from a text file into local storage
-const importTabs = () => {
-    const input = createElement('input', {type: 'file', accept: 'text/plain'});
-    input.onchange = event => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = () => {
-            const urls = reader.result.split('\n');
-            chrome.storage.local.set({tabUrls: urls}, () => {
-                console.log('Tabs imported.');
-                displaySavedTabs(urls);
-            });
-        };
-        reader.readAsText(file);
     };
     input.click();
-};
+}
 
-// Displays the saved tab URLs in a list on the popup's DOM
-const displaySavedTabs = tabUrls => {
-    const tabsList = document.getElementById('tabsList');
-    tabsList.innerHTML = '';
-    tabUrls.forEach(url => {
-        const listItem = createElement('li');
-        const link = createElement('a', {
-            href: url,
-            target: '_blank',
-            textContent: url
-        });
-        listItem.appendChild(link);
-        tabsList.appendChild(listItem);
-    });
-};
+document.getElementById('resizeButton').addEventListener('click', () => {
+    const sizeInput = document.getElementById('sizeInput');
+    const newSize = sizeInput.value;
+    resizePopup(newSize);
+});
 
-// Event listeners for user interactions
-document.getElementById('saveTabs').addEventListener('click', saveTabs);
-document.getElementById('exportTabs').addEventListener('click', exportTabs);
-document.getElementById('importTabs').addEventListener('click', importTabs);
+function resizePopup(size) {
+    const app = document.getElementById('app');
+    const whiteBox = document.getElementById('whiteBox'); // Get the white box element
+
+    app.style.width = `${size}px`;
+    app.style.height = `${size}px`;
+
+    whiteBox.style.width = `${size}px`; // Set the width of the white box
+    whiteBox.style.height = `${size}px`; // Set the height of the white box
+}

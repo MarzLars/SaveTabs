@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f9ae1cf-da20-4bb3-b3c5-ebbb396e8049" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Tests/tabs (1).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tabManager.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uiManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/tabs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/tabs.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/background.js" beforeDir="false" afterPath="$PROJECT_DIR$/background.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/popup.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/popup.html" beforeDir="false" afterPath="$PROJECT_DIR$/popup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/popup.js" afterDir="false" />
@@ -16,6 +18,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,7 +85,7 @@
       <updated>1714922579535</updated>
       <workItem from="1714922581762" duration="3878000" />
       <workItem from="1714928190585" duration="547000" />
-      <workItem from="1714928755611" duration="1478000" />
+      <workItem from="1714928755611" duration="5416000" />
     </task>
     <servers />
   </component>
