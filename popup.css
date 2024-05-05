@@ -1,3 +1,4 @@
+/* popup.css */
 /* Root custom properties for easy theme management */
 :root {
     --main-bg-color: #4CAF50; /* Primary background color */
@@ -11,12 +12,15 @@ body, #app {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Aligns content at the top */
     margin: 0;
-    padding: 0;
+    height: 100vh; /* Full height of the viewport */
+    padding: 20px 0 0;
     box-sizing: border-box;
-    width: var(--container-size); /* Width set to the custom property value */
-    height: var(--container-size); /* Height set to the custom property value */
+    min-width: var(--container-size); /* Minimum width set to the custom property value */
+    min-height: var(--container-size); /* Minimum height set to the custom property value */
+    max-width: 100%; /* Maximum width set to 100% to prevent overflow */
+    max-height: 100%; /* Maximum height set to 100% to prevent overflow */
 }
 
 /* General button styling */
@@ -46,10 +50,17 @@ button:active {
     transform: translateY(4px); /* Moves button down slightly when clicked */
 }
 
-/* Styling for a scrollable list of tabs */
 #tabsList {
-    margin-top: 20px;
-    max-height: 300px; /* Fixed maximum height for scrollable area */
+    flex-grow: 1; /* Allows the element to take up remaining space */
     overflow-y: auto; /* Enables vertical scrolling */
     width: 100%; /* Full width of its container */
+    margin-top: 20px;
+    height: 50vh; /* Adjust this value as needed */
+}
+
+#resizeContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Aligns content at the bottom */
+    height: 100%;
 }
