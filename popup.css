@@ -10,6 +10,7 @@
 /* Styling for body and app container to center content */
 body, #app {
     display: flex;
+    font-family: 'Poppins', sans-serif;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; /* Aligns content at the top */
@@ -23,10 +24,22 @@ body, #app {
     max-height: 100%; /* Maximum height set to 100% to prevent overflow */
 }
 
+/* Styling for the title */
+h1 {
+    font-size: 2em; /* Increase the font size */
+    color: #000000; /* Change the color to match the theme */
+    text-align: center; /* Center align the text */
+    font-weight: bold; /* Make the text bold */
+    margin-bottom: 20px; /* Add some space below the title */
+}
+a {
+    font-family: 'JetBrains Mono', monospace;
+}
+
 /* General button styling */
 button {
     display: inline-block;
-    padding: 5px 10px;
+    padding: 10px 20px; /* Increase padding for better clickability */
     font-size: 16px;
     cursor: pointer;
     text-align: center;
@@ -38,11 +51,13 @@ button {
     border-radius: var(--button-radius); /* Rounded corners using custom property */
     width: 80%; /* Button width relative to its container */
     box-sizing: border-box;
+    margin-right: 10px; /* Add some space between the buttons */
 }
 
 /* Hover and active state styling for buttons */
 button:hover, button:active {
     background-color: var(--hover-bg-color); /* Darker shade on hover and active */
+    transform: scale(1.05); /* Slightly increase the size of the button on hover and active */
 }
 
 /* Additional transformation on button active state for tactile feedback */
@@ -55,7 +70,7 @@ button:active {
     overflow-y: auto; /* Enables vertical scrolling */
     width: 100%; /* Full width of its container */
     margin-top: 20px;
-    height: 50vh; /* Adjust this value as needed */
+    height: 70vh; /* Adjust this value as needed */
 }
 
 #resizeContainer {
